@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>
+        rock, paper, scissors
+    </title>
+</head>
+<body>
+
+<script>
+
+// This will make the first letter of any string uppercase and the rest of the string will be lowercase.
+String.prototype.toProperCase = function () {
+    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+};
+
+let rps = ["Rock", "Paper", "Scissors"];
+
+let playerSelection;
+let computerSelection;
+let tieSwitch; // tie switch is reset to false at beginning of play round since there isnt a tie, but when there is a tie, it is switched to true.
+let winCounter = 0;
+let computerWinCounter = 0;
+
+
+//this will randomly return Rock, Paper, or Scissors.
+function computerPlay() {
+    return rps[Math.floor(Math.random()*rps.length)];
+}
+
+
+function playRound(playerSelection, computerSelection) {
+    playerSelection = prompt("Rock, Paper, or Scissors?").toProperCase();
+    computerSelection = computerPlay();
+    let win = `You win! ${playerSelection} beats ${computerSelection}.`;
+    let tie = `You tied with the computer! Try again.`;
+    let lose = `You lose! ${computerSelection} beats ${playerSelection}.`;
+    tieSwitch = false;
+    
+
+
+    if (playerSelection == "Rock" && computerSelection == "Scissors") {
+        alert(win);
+        console.log(win);
+        return win, winCounter++;
+        
+}   else if (playerSelection == "Paper" && computerSelection == "Rock") {
+        alert(win);
+        console.log(win);
+        return win, winCounter++;
+        
+}   else if (playerSelection == "Scissors" && computerSelection == "Paper") {
+        alert(win);
+        console.log(win);
+        return win, winCounter++;
+
+}   else if (playerSelection == computerSelection) {
+        alert(tie);
+        console.log(tie);
+        return tie, tieSwitch = true;
+}   else {
+        alert(lose);
+        console.log(lose);
+        return lose, computerWinCounter++;
+        
+}
+
+}
+
+
+function game() {
+    let i = 0;
+    while (i < 5) {
+        playRound(playerSelection, computerSelection);
+        i++; // go to next round.
+
+        if (computerWinCounter == 3) {
+        alert("The Computer wins!");
+        console.log("The Computer wins!")
+        break; //if the computer wins 3 out of the 5 rounds, the game ends. 
+        }
+
+        if (winCounter == 3) {
+        alert("Congratulations, you win!");
+        console.log("Congratulations, you win!");
+        break; //if the player wins 3 out of the 5 rounds, the game ends. 
+        }
+
+        if (tieSwitch == true) {
+            i--; //if a tie happens, do not go to next round.
+        }
+    }
+
+}
+
+console.log(game());
+
+
+</script>
+</body>
+</html>
